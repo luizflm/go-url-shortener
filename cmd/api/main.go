@@ -1,11 +1,16 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
 )
 
 func main() {
+	addr := flag.String("addr", ":8080", "HTTP network address")
+
+	flag.Parse()
+
 	mux := http.NewServeMux()
 
 	fileServer := http.FileServer(http.Dir("./assets/static/"))
@@ -14,8 +19,8 @@ func main() {
 
 	mux.HandleFunc("GET /", home)
 
-	log.Print("starting server on :8080")
+	log.Printf("starting server on %s", *addr)
 
-	err := http.ListenAndServe(":8080", mux)
+	err := http.ListenAndServe(*addr, mux)
 	log.Fatal(err)
 }
