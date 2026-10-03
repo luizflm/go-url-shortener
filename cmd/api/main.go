@@ -8,9 +8,11 @@ import (
 func main() {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World"))
-	})
+	fileServer := http.FileServer(http.Dir("./assets/static/"))
+
+	mux.Handle("GET /static/", http.StripPrefix("/static", fileServer))
+
+	mux.HandleFunc("GET /", home)
 
 	log.Print("starting server on :8080")
 

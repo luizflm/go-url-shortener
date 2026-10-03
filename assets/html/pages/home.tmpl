@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101510">
+    <meta name="description" content="Turn long links into short, shareable URLs with Shorten-it.">
+    <title>Shorten-it — less link, more room</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/js/main.js" defer></script>
+</head>
+<body>
+    <div class="site-shell">
+        <header class="site-header">
+            <a class="brand" href="/" aria-label="Shorten-it home"><span class="brand-mark" aria-hidden="true">&gt;_</span><span>Shorten<span class="brand-accent">-it</span><span class="brand-cursor" aria-hidden="true">_</span></span></a>
+            <span class="header-note"><span class="status-dot" aria-hidden="true"></span> LINK UTILITY / ONLINE</span>
+        </header>
+
+        <main class="main-content">
+            <div class="eyebrow"><span class="eyebrow-line"></span> SIMPLE LINKS. BIG POSSIBILITIES.</div>
+            <h1>Long URL?<br><span>Let's cut it short<span class="heading-period">.</span></span></h1>
+            <p class="intro">Paste your link below and get a clean, shareable URL in a click. No clutter, no fuss.</p>
+
+            <section class="terminal" aria-labelledby="terminal-title">
+                <div class="terminal-bar">
+                    <div class="window-controls" aria-hidden="true"><i></i><i></i><i></i></div>
+                    <span id="terminal-title">shorten-it / new-link</span>
+                    <span class="terminal-bar-end" aria-hidden="true">⌘_</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="command-line" aria-hidden="true"><span class="prompt">$</span> shorten --url <span id="command-url" class="command-url"></span> <span class="command-cursor">_</span></div>
+                    <form action="/shorten" method="post">
+                        <label for="url">PASTE YOUR LONG URL</label>
+                        <div class="form-row">
+                            <div class="input-wrap"><span aria-hidden="true">↗</span><input id="url" name="url" type="url" inputmode="url" placeholder="https://example.com/a/really/long/link" required autocomplete="url" aria-describedby="url-hint"></div>
+                            <button type="submit">Shorten link <span aria-hidden="true">↗</span></button>
+                        </div>
+                        <p class="form-hint" id="url-hint">// Only http and https links are supported.</p>
+                    </form>
+                    <output class="result" id="short-url" aria-live="polite" hidden></output>
+                </div>
+            </section>
+
+            <div class="below-terminal"><span><span class="green">01</span> &nbsp; PASTE A LINK</span><span class="step-divider" aria-hidden="true">→</span><span><span class="green">02</span> &nbsp; SHORTEN IT</span><span class="step-divider" aria-hidden="true">→</span><span><span class="green">03</span> &nbsp; SHARE AWAY</span></div>
+        </main>
+
+        <footer><span>© Shorten-it</span><span>LESS LINK. MORE ROOM. <span class="footer-star">✳</span></span></footer>
+    </div>
+</body>
+</html>
