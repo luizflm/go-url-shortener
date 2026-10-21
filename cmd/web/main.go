@@ -8,11 +8,13 @@ import (
 	"os"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/luizflm/go-url-shortener/internal/models"
 )
 
 type application struct {
-	logger *slog.Logger
-	db     *pgxpool.Pool
+	logger  *slog.Logger
+	urls    *models.URLModel
+	baseURL string
 }
 
 func main() {
@@ -32,8 +34,9 @@ func main() {
 	defer db.Close()
 
 	app := &application{
-		logger: logger,
-		db:     db,
+		logger:  logger,
+		urls:    &models.URLModel{DB: db},
+		baseURL: "http://localhost" + *addr,
 	}
 
 	logger.Info("starting serve", "addr", *addr)
