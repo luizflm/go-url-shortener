@@ -10,6 +10,7 @@ func (app *application) routes() http.Handler {
 
 	mux.HandleFunc("GET /{$}", app.home)
 	mux.HandleFunc("POST /{$}", app.shortenUrl)
+	mux.HandleFunc("GET /{code}", app.handleUrl)
 
 	return mux
 }

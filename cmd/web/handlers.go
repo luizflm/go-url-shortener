@@ -66,3 +66,31 @@ func (app *application) shortenUrl(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, r, err)
 	}
 }
+
+func (app *application) handleUrl(w http.ResponseWriter, r *http.Request) {
+	code := r.PathValue("code")
+
+	if !validator.Matches(code, validator.Base62RX) {
+		http.NotFound(w, r)
+		return
+	}
+
+	id, err := base62.ConvertToDecimal(code)
+	if err != nil {
+		http.NotFound(w, r)
+		return
+	}
+
+	url, err := app.urls.GetById(r.Context(), id)
+	if err != nil {
+		switch {
+		case errors.Is(err, models.ErrNotFound):
+			http.NotFound(w, r)
+		default:
+			app.serverError(w, r, err)
+		}
+		return
+	}
+
+	http.Redirect(w, r, url, http.StatusMovedPermanently)
+}
